@@ -1,0 +1,139 @@
+<!-- Crear Producto -->
+<div class="modal fade" id="modalCrear" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Crear Unidad Medida</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form class="mt-4 " #formulario="ngForm">
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="">Nombre:</label>
+                                    <input type="text" class="form-control" required [(ngModel)]="objNewUnidadMedida.um_nom" name="um_nom" placeholder="Ejm: Kilos,Litros,Pulgadas,etc">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="">Abreviacion:</label>
+                                    <input type="text" class="form-control" required [(ngModel)]="objNewUnidadMedida.um_abr" name="um_nom" placeholder="Ejm: Kg,Lt,pul">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-block btn-lg btn-dark" [disabled]="!formulario.valid" (click)="CrearUnidadMedida()">
+                        <i class="fas fa-save"></i>
+                        Crear Unidad de Medida
+                    </button>
+                    <button type="submit" class="btn btn-block btn-lg btn-dark" (click)="Cancelar()">
+                        <i class="fas fa-arrow-alt-circle-left"></i> Volver
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modificar Datos Producto -->
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bienvenido al menu editar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form class="mt-4 " #formularios="ngForm">
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="">Id UM:</label>
+                                    <input type="text" required class="form-control" [(ngModel)]="objUnidadMedida.um_id" name="prod_id" disabled>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">Nombre:</label>
+                                    <input type="text" class="form-control" required [(ngModel)]="objUnidadMedida.um_nom" name="prod_nomb" placeholder="Ejm:  Kilos,Litros,Pulgadas,etc">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">Abreviatura:</label>
+                                    <input type="text" class="form-control" required [(ngModel)]="objUnidadMedida.um_abr" name="prod_nomb" placeholder="Ejm:  Kilos,Litros,Pulgadas,etc">
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <hr>
+                        <hr>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-block btn-lg btn-dark" [disabled]="!formularios.valid" (click)="Guardar()">
+                                            <i class="fas fa-save"></i>
+                                            Guardar Unidad Medida
+                                        </button>
+                            <br>
+                            <button type="submit" class="btn btn-block btn-lg btn-dark" (click)="Cancelar()">
+                                <i class="fas fa-arrow-alt-circle-left"></i> Volver
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div>
+        <div class="alert alert-success text-center" role="alert" *ngIf="!unidadMedidas">
+            <h4 class="alert-heading">Cargando..</h4>
+            <p>
+                <i class="fa fa-refresh fa-3x fa-spin" aria-hidden="true"></i>
+            </p>
+        </div>
+        <div *ngIf="unidadMedidas" class="animated slideInLeft">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Abreviación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let um of unidadMedidas.content">
+                        <td>{{um.um_id}}</td>
+                        <td>{{um.um_nom}}</td>
+                        <td>{{um.um_abr}}</td>
+
+                        <td style="display: flex;">
+                            <button class="btn btn-danger" (click)="eliminarUnidadMedida(um.um_id)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+
+                            <button class="btn btn-secondary ml-2" (click)="abrirModalEditar(um.um_id)">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button class="btn btn-dark btnCrear animated tada infinite slow" (click)="AbrirModalCrearUnidadMedida()">
+                <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+            </button>
+    </div>
+</div>
